@@ -1,0 +1,92 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" backgroundColor="#2A2A2A">
+    <!-- AI Analysis Progress Bar -->
+    <GridLayout rows="auto, *, auto">
+        <StackLayout row="0" class="progress-bar" opacity="{{ isAnalyzing ? 1 : 0 }}">
+            <Label text="{{ analysisStatus }}" class="text-white text-xs p-1" />
+            <Progress value="{{ analysisProgress }}" maxValue="100" />
+        </StackLayout>
+
+        <!-- Main Content Area -->
+        <GridLayout row="1">
+            <!-- Video Player -->
+            <VideoPlayer src="{{ currentVideo }}" autoplay="true" loop="true" />
+
+            <!-- Floating Tags -->
+            <StackLayout verticalAlignment="center" horizontalAlignment="right" margin="16">
+                <!-- Product Tag -->
+                <GridLayout tap="{{ onProductTap }}" class="video-tag m-2">
+                    <StackLayout orientation="horizontal">
+                        <Label text="👗" class="mr-2" />
+                        <Label text="{{ currentProduct }}" class="video-tag-text" />
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Location Tag -->
+                <GridLayout tap="{{ onLocationTap }}" class="video-tag m-2">
+                    <StackLayout orientation="horizontal">
+                        <Label text="📍" class="mr-2" />
+                        <Label text="{{ currentLocation }}" class="video-tag-text" />
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Celebrity Tag -->
+                <GridLayout tap="{{ onCelebrityTap }}" class="video-tag m-2">
+                    <StackLayout orientation="horizontal">
+                        <Label text="💡" class="mr-2" />
+                        <Label text="{{ currentCelebrity }}" class="video-tag-text" />
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+
+            <!-- Product Detail Modal -->
+            <GridLayout visibility="{{ showProductDetail ? 'visible' : 'collapsed' }}" 
+                       class="modal-overlay" tap="{{ closeProductDetail }}">
+                <StackLayout class="product-card m-4 p-4" verticalAlignment="center">
+                    <GridLayout columns="auto, *" rows="auto, auto, auto, auto">
+                        <!-- Product Image -->
+                        <Image col="0" row="0" rowSpan="4" src="{{ selectedProduct.image }}" 
+                               width="120" height="120" class="rounded-lg" />
+                        
+                        <!-- Product Details -->
+                        <Label col="1" row="0" text="{{ selectedProduct.name }}" 
+                               class="font-bold text-lg ml-4" />
+                        <Label col="1" row="1" text="{{ selectedProduct.price + ' | ' + selectedProduct.rating + '★' }}" 
+                               class="text-gray-600 ml-4" />
+                        <Label col="1" row="2" text="{{ selectedProduct.variants }}" 
+                               class="text-gray-600 ml-4" />
+                        
+                        <!-- Action Buttons -->
+                        <StackLayout col="1" row="3" orientation="horizontal" class="ml-4">
+                            <Button text="🛒 Buy Now" tap="{{ onBuyTap }}" class="buy-button mr-2" />
+                            <Button text="❤ Save" tap="{{ onSaveTap }}" class="save-button" />
+                        </StackLayout>
+                    </GridLayout>
+
+                    <!-- Retailer Logos -->
+                    <StackLayout orientation="horizontal" horizontalAlignment="center" 
+                               class="mt-4">
+                        <Image src="~/images/amazon-logo.png" width="60" class="m-2" />
+                        <Image src="~/images/ebay-logo.png" width="60" class="m-2" />
+                        <Image src="~/images/zara-logo.png" width="60" class="m-2" />
+                    </StackLayout>
+                </StackLayout>
+            </GridLayout>
+        </GridLayout>
+
+        <!-- Bottom Navigation -->
+        <GridLayout row="2" columns="*, *, *" class="bottom-nav">
+            <StackLayout col="0" tap="{{ onHomeTab }}" class="bottom-nav-item-active p-2">
+                <Label text="🏠" class="text-center" />
+                <Label text="Home" class="text-center text-xs" />
+            </StackLayout>
+            <StackLayout col="1" tap="{{ onSavedTab }}" class="bottom-nav-item p-2">
+                <Label text="💾" class="text-center" />
+                <Label text="Saved" class="text-center text-xs" />
+            </StackLayout>
+            <StackLayout col="2" tap="{{ onCameraTab }}" class="bottom-nav-item p-2">
+                <Label text="📷" class="text-center" />
+                <Label text="Camera" class="text-center text-xs" />
+            </StackLayout>
+        </GridLayout>
+    </GridLayout>
+</Page>

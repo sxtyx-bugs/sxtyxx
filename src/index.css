@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.font-roboto {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
